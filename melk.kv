@@ -1,0 +1,424 @@
+# _*_ coding: UTF8 _*_
+#: import set_shape main.set_shape
+RealEstateContainer:
+
+<RealEstateContainer>:
+	container_view: container_id
+	index_page: index_id
+	orientation: 'vertical'
+	canvas:
+		Color:
+			rgb: [1.0, 0.84, 0]
+		Rectangle:
+			size: self.size
+			pos: self.pos
+	ActionBar:
+		ActionView:
+			use_separator: True
+			ActionPrevious:
+				text: 'Melk-1'
+				with_previous: False
+			ActionButton:
+				text: set_shape('کل املاک')
+				font_name: 'data/fonts/Mirta.ttf'
+				on_press: app.root.show_index()
+			ActionButton:
+				text: set_shape('ملک آخر')
+				font_name: 'data/fonts/Mirta.ttf'
+				on_press: app.root.show_latest_view_melk()
+
+	BoxLayout:
+		id: container_id
+		orientation: 'vertical'
+		Index:
+			id: index_id
+
+
+<Index>:
+	orientation: 'vertical'
+	estates: estate_list
+	scroll_view: scrollveiw_id
+	ScrollView:
+		id: scrollveiw_id
+		bar_margin: 10
+		update_from_scroll: root.scrolling(self.scroll_y)
+		ScrollContainer:
+			id: estate_list
+
+<MelkItem>:
+	orientation: 'vertical'
+	padding: '5dp'
+	size_hint_y: None
+	height: '100dp'
+	canvas:
+		Color:
+			rgb: root.background_color
+		Rectangle:
+			size: self.size
+			pos: self.pos
+	BoxLayout:
+		BoxLayout:
+			size_hint_x: 30
+			padding: '3dp'
+			AsyncImage:
+				source: root.image_url
+		GridLayout:
+			size_hint_x: 70
+			cols: 1
+			spacing: '3dp'
+			UnicodeLabel:
+			    text: self.set_shape(root.type)
+			HLine:
+			UnicodeLabel:
+			    text: self.set_shape(root.area)
+			HLine:
+			UnicodeLabel:
+			    text: self.set_shape(root.price)
+
+
+<HLine@Image>:
+	source: 'data/images/h_line.png'
+
+<Melk>:	
+	padding: '1dp'
+	orientation: 'vertical'
+	feature_grid: features_id
+
+	ScrollView:
+		bar_margin: 10
+
+		ScrollContainer:
+			id: features_id
+			
+			## Feature
+			Feature:
+				id: feature
+
+			## Home
+			Home:
+				id: home
+
+			## Experience
+			Experience:
+				id: experience
+
+			## Facilities
+			Facilities:
+				id: facilities
+			
+			## Services
+			Accordion:
+				orientation: 'vertical'
+				size_hint_y: None
+				height: '400dp'
+				id: service
+
+			## Extra comment
+			Description:
+				id: description
+
+			## Address
+			Address:
+				id: address
+
+			## Cost
+			Cost:
+				id: cost
+
+			## User
+			User:
+				id: user
+
+<DetailLabel@UnicodeLabel>:
+	size_hint_y: None
+	height: '40dp'
+	color: 0, 0, 0
+	canvas.before:
+		Color:
+			rgb: 1.0, 1.0, 1.0
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+<DetailGrid>:
+	cols: 2
+	spacing: '1dp'
+	padding: '2dp'
+	size_hint_y: None
+
+<ScrollContainer>:
+	cols: 1
+	spacing: '2dp'
+	size_hint_y:None
+	padding: '5dp'
+
+<Feature@DetailGrid>:
+	area: 0
+	built_up_area: 0
+	construction_date: 1300
+	is_sold: False
+	control: ''
+	document_situation: ''
+	estate_position: ''
+	estate_type: ''
+	estate_priority: ''
+	description: ''
+
+	DetailLabel:
+		text: self.set_shape(root.estate_type)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('نوع ملک')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: self.set_shape(root.document_situation)
+	DetailLabel:
+		text: self.set_shape('وضعیت سند')
+
+	DetailLabel:
+		text: self.set_shape(root.estate_position)
+	DetailLabel:
+		text: self.set_shape('موقعیت ملک')
+
+	DetailLabel:
+		text: self.set_shape(root.control)
+	DetailLabel:
+		text: self.set_shape('کاربری')
+
+	DetailLabel:
+		text: str(root.area)
+	DetailLabel:
+		text: self.set_shape('مساحت')
+
+	DetailLabel:
+		text: str(root.built_up_area)
+	DetailLabel:
+		text: self.set_shape('متراژ زیربنا')
+
+	DetailLabel:
+		text: str(root.construction_date)
+	DetailLabel:
+		text: self.set_shape('سال ساخت')
+
+<Home@DetailGrid>:
+	frame_type: ''
+	number_of_floors: 0
+	floor_for_sell_or_rent: 0
+	unit_for_sell_or_rent: 0
+
+	DetailLabel:
+		text: self.set_shape(root.frame_type)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('نوع اسکلت بندی')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: str(root.number_of_floors)
+	DetailLabel:
+		text: self.set_shape('تعداد طبقات')
+
+	DetailLabel:
+		text: str(root.floor_for_sell_or_rent)
+	DetailLabel:
+		text: self.set_shape('طبقه ی مورد نظر')
+
+	DetailLabel:
+		text: str(root.unit_for_sell_or_rent)
+	DetailLabel:
+		text: self.set_shape('واحد مورد نظر')
+
+<Experience@DetailGrid>:
+	water: False
+	power: False
+	phone: False
+	gas: False
+
+	DetailLabel:
+		text: str(root.water)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('آب')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: str(root.power)
+	DetailLabel:
+		text: self.set_shape('برق')
+
+	DetailLabel:
+		text: str(root.phone)
+	DetailLabel:
+		text: self.set_shape('تلفن')
+
+	DetailLabel:
+		text: str(root.gas)
+	DetailLabel:
+		text: self.set_shape('گاز')
+
+<Facilities@DetailGrid>:
+	number_of_bedrooms: 0
+	heating_system: False
+	cooling_system: False
+	well: False
+	warehouse: False
+	balcony: False
+	basement: False
+	elevator: False
+	shooting: False
+
+	DetailLabel:
+		text: str(root.number_of_bedrooms)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('تعداد اتاق خواب')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: str(root.heating_system)
+	DetailLabel:
+		text: self.set_shape('سیستم گرمایشی')
+
+	DetailLabel:
+		text: str(root.cooling_system)
+	DetailLabel:
+		text: self.set_shape('سیستم سرمایشی')
+
+	DetailLabel:
+		text: str(root.well)
+	DetailLabel:
+		text: self.set_shape('چاه')
+
+	DetailLabel:
+		text: str(root.warehouse)
+	DetailLabel:
+		text: self.set_shape('انبار')
+
+	DetailLabel:
+		text: str(root.basement)
+	DetailLabel:
+		text: self.set_shape('زیرزمین')
+
+	DetailLabel:
+		text: str(root.elevator)
+	DetailLabel:
+		text: self.set_shape('آسانسور')
+
+	DetailLabel:
+		text: str(root.balcony)
+	DetailLabel:
+		text: self.set_shape('بالکن')
+
+	DetailLabel:
+		text: str(root.shooting)
+	DetailLabel:
+		text: self.set_shape('شوتینگ زباله')
+
+<Address@DetailGrid>:
+	country: ''
+	province: ''
+	city: ''
+	region: ''
+	postal_code: ''
+	address: ''
+
+	DetailLabel:
+		text: self.set_shape(root.country)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('کشور')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: self.set_shape(root.province)
+	DetailLabel:
+		text: self.set_shape('استان')
+
+	DetailLabel:
+		text: self.set_shape(root.city)
+	DetailLabel:
+		text: self.set_shape('شهر')
+
+	DetailLabel:
+		text: self.set_shape(root.region)
+	DetailLabel:
+		text: self.set_shape('منطقه')
+
+	DetailLabel:
+		text: self.set_shape(root.postal_code)
+	DetailLabel:
+		text: self.set_shape('کد پستی')
+
+	DetailLabel:
+		text: self.set_shape(root.address)
+	DetailLabel:
+		text: self.set_shape('آدرس')
+
+<Cost@DetailGrid>:
+	cost_metric: 0
+	price: 0
+
+	DetailLabel:
+		text: str(root.cost_metric)
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('نرخ متری')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: str(root.price)
+	DetailLabel:
+		text: self.set_shape('قیمت')
+
+<User@DetailGrid>:
+	first_name: ''
+	last_name: ''
+	mobile_number: ''
+	phone_number: ''
+
+	DetailLabel:
+		text: self.set_shape(', '.join([root.first_name, root.last_name]))
+		size_hint_x: 60
+	DetailLabel:
+		text: self.set_shape('نام')
+		size_hint_x: 40
+
+	DetailLabel:
+		text: self.set_shape(root.mobile_number)
+	DetailLabel:
+		text: self.set_shape('شماره موبایل')
+
+	DetailLabel:
+		text: self.set_shape(root.phone_number)
+	DetailLabel:
+		text: self.set_shape('شماره ثابت')
+
+<Description@DetailGrid>:
+	description: ''
+
+	DetailLabel:
+		text: self.set_shape(root.description)
+
+<Service@BoxLayout>:
+	description: ''
+	orientation: 'vertical'
+	padding: '7dp'
+
+	DetailLabel:
+		text: self.set_shape(root.description)
+
+<EstateImage@BoxLayout>:
+	orientation: 'vertical'
+	file_name: ''
+	is_default: False
+	size_hint_y: 50
+
+	AsyncImage:
+		source: root.file_name
+		size_hint: (None, None)
+		height: '256dp'
+		width: '200dp'
+
+	DetailLabel:
+		text: ' '.join([str(root.is_default), self.set_shape('به عنوان عکس پیش فرض')])
