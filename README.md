@@ -32,7 +32,7 @@ In the root directory of project, run below code in terminal
 ## Run the project
 In the root directory of project, run below code in terminal
 
-`Python main.py`
+`python main.py`
 
 ## Packaging the application
-Using [this](https://kivy.org/docs/guide/packaging.html) link for packaging the application for Win, Mac, IOS, Android Platforms
+Using [this](https://kivy.org/docs/guide/packaging.html) link for packaging the application for Win, Mac, iOS, Android Platforms
